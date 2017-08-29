@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Laravel Excel - An eloquent way of importing and exporting Excel and CSV files for Laravel 4 with the power of PHPExcel">
+    <meta name="keywords" content="Laravel excel phpexcel phpoffice csv xls xlsx eloquent export import">
+    <meta name="author" content="Maatwebsite">
+    <link rel="canonical" href="http://www.maatwebsite.nl/laravel-excel/docs/getting-started" />
+
+    <title>
+         Getting started -         Laravel Excel Documentation - Maatwebsite</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600' rel='stylesheet' type='text/css'>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link media="all" type="text/css" rel="stylesheet" href="http://www.maatwebsite.nl/css/docs.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+    <header class="navbar docs-nav" id="top" role="banner">
+      <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a title="Go to Laravel Excel documentation index" href="http://www.maatwebsite.nl/laravel-excel/docs" class="navbar-brand"><img title="Maatwebsite Laravel Excel logo" src="http://www.maatwebsite.nl/img/footer-icon.png"> Laravel Excel</a>
+        </div>
+
+        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav">
+                <li  class="active" ><a title="Getting started with Laravel Excel" href="http://www.maatwebsite.nl/laravel-excel/docs/getting-started">Getting started</a></li>
+                <li ><a title="Import Excel in Laravel" href="http://www.maatwebsite.nl/laravel-excel/docs/import">Import</a></li>
+                <li ><a title="Exporting Excel in Laravel" href="http://www.maatwebsite.nl/laravel-excel/docs/export">Export</a></li>
+                <li ><a title="Export Blade views to Excel in Laravel" href="http://www.maatwebsite.nl/laravel-excel/docs/blade">@Blade to Excel</a></li>
+                <li ><a title="Laravel Excel reference guide" href="http://www.maatwebsite.nl/laravel-excel/docs/reference-guide">Reference guide</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a target="_blank" title="Laravel Excel on GitHub" href="https://github.com/Maatwebsite/Laravel-Excel">GitHub</a></li>
+                <li><a target="_blank" title="Laravel Excel on Packagist" href="https://packagist.org/packages/maatwebsite/excel">Packagist</a></li>
+            </ul>
+        </nav>
+      </div>
+    </header>
+
+        <main class="masthead" id="content" role="main">
+        <div class="container">
+            
+<div class="pageheader">
+    <h1>Getting started</h1>
+</div>
+
+        </div>
+    </main>
+
+    <div class="container">
+                
+    <div class="col-md-9 docs-content" role="main">
+
+        
+            <div class="docs-section" id="installation">
+
+                <h1>Installation</h1>
+
+<p>Require this package in your <code>composer.json</code> and update composer. This will download the package and PHPExcel of PHPOffice.</p>
+
+<h4>Laravel 4</h4>
+
+<pre><code>"maatwebsite/excel": "~1.3"
+</code></pre>
+
+<h4>Laravel 5</h4>
+
+<pre><code>"maatwebsite/excel": "~2.1.0"
+</code></pre>
+
+<p>After updating composer, add the ServiceProvider to the providers array in <code>app/config/app.php</code></p>
+
+<pre><code>Maatwebsite\Excel\ExcelServiceProvider::class,
+</code></pre>
+
+<p>You can use the facade for shorter code. Add this to your aliasses:</p>
+
+<pre><code>'Excel' =&gt; Maatwebsite\Excel\Facades\Excel::class,
+</code></pre>
+
+<p>The class is binded to the ioC as <code>excel</code></p>
+
+<pre><code>$excel = App::make('excel');
+</code></pre>
+
+            </div>
+
+        
+            <div class="docs-section" id="config">
+
+                <h1>Config</h1>
+
+<h3>Laravel 4</h3>
+
+<p>Laravel Excel includes several config settings for import-, export-, view- and CSV-specific settings.
+Use the artisan publish command to publish the config file to your project.</p>
+
+<pre><code>php artisan config:publish maatwebsite/excel
+</code></pre>
+
+<p>The config files can now be found at <code>app/config/packages/maatwebsite/excel</code></p>
+
+<h3>Laravel 5</h3>
+
+<p>To publish the config settings in Laravel 5 use:</p>
+
+<pre><code>php artisan vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider"
+</code></pre>
+
+<p>This will add an <code>excel.php</code> config file to your config folder.</p>
+
+            </div>
+
+        
+            <div class="docs-section" id="requirements">
+
+                <h1>Requirements</h1>
+
+<ul>
+<li>PHP version >= 5.3.7</li>
+<li>Laravel >= 4.1</li>
+<li>PHPOffice PHPExcel >= 1.8.0 (included by composer.json)</li>
+<li>PHP extension php_zip enabled (required if you need PHPExcel to handle .xlsx .ods or .gnumeric files)</li>
+<li>PHP extension php_xml enabled</li>
+<li>PHP extension php_gd2 enabled (optional, but required for exact column width autocalculation)</li>
+</ul>
+
+            </div>
+
+        
+            <div class="docs-section" id="contributing">
+
+                <h1>Contribution Guide</h1>
+
+<h3>Bug fixes</h3>
+
+<p><strong>ALL</strong> bug fixes should be made to appropriate branch (e.g. <code>1.1</code> for 1.1.* bug fixes). Bug fixes should never be sent to the <code>master</code> branch.</p>
+
+<h3>Pull Requests</h3>
+
+<p>Every pull request should pass the unit tests. If you include new functionality, make sure you include a test. Pull requests will be evaluated and possibly added to the next stable release.</p>
+
+<h3>Feature Requests</h3>
+
+<p>If you have an idea for a new feature you would like to see added to Laravel Excel, you may create an issue on GitHub with <code>[Request]</code> in the title. The feature request will then be reviewed by @Maatwebsite.</p>
+
+<h3>Coding Guidelines</h3>
+
+<p>Laravel, and therefore Maatwebsite's Laravel Excel follows the <a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md">PSR-0</a> and <a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md">PSR-1</a> coding standards. In addition to these standards, below is a list of other coding standards that should be followed:</p>
+
+<ul>
+<li>Namespace declarations should be on the same line as <code>&lt;?php</code>.</li>
+<li>Class opening <code>{</code> should be on the same line as the class name.</li>
+<li>Function and control structure opening <code>{</code> should be on a separate line.</li>
+<li>Interface and Trait names are suffixed with <code>Interface</code> (<code>FooInterface</code>) and <code>Trait</code> (<code>FooTrait</code>) respectively.</li>
+</ul>
+
+            </div>
+
+        
+            <div class="docs-section" id="license">
+
+                <h1>License</h1>
+
+<p>This package is licensed under LGPL. You are free to use it in personal and commercial projects. The code can be forked and modified, but the original copyright author should always be included!</p>
+
+            </div>
+
+        
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="docs-sidebar hidden-print" role="complementary">
+            <ul class="nav docs-sidenav">
+                                <li>
+                    <a title="Go to Installation" href="#installation">Installation</a>
+                </li>
+                                <li>
+                    <a title="Go to Config" href="#config">Config</a>
+                </li>
+                                <li>
+                    <a title="Go to Requirements" href="#requirements">Requirements</a>
+                </li>
+                                <li>
+                    <a title="Go to Contributing" href="#contributing">Contributing</a>
+                </li>
+                                <li>
+                    <a title="Go to License" href="#license">License</a>
+                </li>
+                            </ul>
+        </div>
+
+    </div>
+    </div>
+
+    <footer class="docs-footer" role="contentinfo">
+        <div class="container">
+            <div class="docs-social">
+                <ul class="docs-social-buttons">
+                    <li>
+                        <iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=Maatwebsite&amp;repo=Laravel-Excel&amp;type=watch&amp;count=true" width="100" height="20" title="Star on GitHub"></iframe>
+                    </li>
+                    <li>
+                        <iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=Maatwebsite&amp;repo=Laravel-Excel&amp;type=fork&amp;count=true" width="102" height="20" title="Fork on GitHub"></iframe>
+                    </li>
+                    <li>
+                        <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FMaatwebsite&amp;width&amp;layout=button_count&amp;action=like&amp;show_faces=true&amp;share=false&amp;height=21&amp;appId=659217984117794" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:21px;" allowTransparency="true"></iframe>
+                    </li>
+                    <li class="follow-btn">
+                        <a title="Follow Maatwebsite on Twitter" href="https://twitter.com/maatwebsite" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @maatwebsite</a>
+                    </li>
+                    <li>
+                        <script src="//platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
+                        <script type="IN/FollowCompany" data-id="1427843" data-counter="right"></script>
+                    </li>
+                </ul>
+            </div>
+
+            <p>Code licensed under <a title="Laravel Excel License" href="https://github.com/Maatwebsite/Laravel-Excel/blob/master/LICENSE" target="_blank">LGPL</a></p>
+            <p>Coded by the <a target="_blank" title="Maatwebsite" href="http://maatwebsite.nl">Maatwebsite Team</a> for <a target="_blank" title="Laravel Framework" href="http://laravel.com">Laravel</a></p>
+            <p>Original PHPExcel code by <a target="_blank" title="PHPOffice" href="https://github.com/PHPOffice/PHPExcel">PHPOffice</a> | Documentation based on <a target="_blank" title="Bootstrap" href="http://getbootstrap.com">Bootstrap 3</a></p>
+            <ul class="docs-footer-links muted">
+                <li>Latest version: 2.1.20</li>
+                <li>&middot;</li>
+                <li><a title="Laravel Excel changelog" href="http://www.maatwebsite.nl/laravel-excel/docs/changelog">Changelog</a></li>
+                <li>&middot;</li>
+                <li><a title="Laravel Excel on GitHub" target="_blank" href="https://github.com/Maatwebsite/Laravel-Excel">GitHub</a></li>
+                <li>&middot;</li>
+                <li><a title="Laravel Excel on Packagist" target="_blank" href="https://packagist.org/packages/maatwebsite/excel">Packagist</a></li>
+                <li>&middot;</li>
+                <li><a title="See open issues on GitHub" target="_blank" href="https://github.com/Maatwebsite/Laravel-Excel/issues?state=open">Issues</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+    <!-- Prettify -->
+    <script src="http://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?callback=add_vars"></script>
+    <script>
+        window.exports = {
+            add_vars: function () {
+
+                // Add var class to all .pln's with start with $
+                $('.pln').each(function(i, obj) {
+                    var content = $(obj).text();
+                    if(content.match(/\$/)) {
+                        $(obj).removeClass('pln').addClass('var');
+                    }
+                    if($.trim(content) == 'array') {
+                        $(obj).removeClass('pln').addClass('func');
+                    }
+                });
+                $('.kwd').each(function(i, obj) {
+                    var content = $(obj).text();
+                    if(content == 'function' || content == 'return') {
+                        $(obj).removeClass('kwd').addClass('call');
+                    }
+                    if(content == 'true' || content == 'false') {
+                        $(obj).removeClass('kwd').addClass('lit');
+                    }
+                });
+                $('.com').each(function(i, obj) {
+                    var content = $(obj).text();
+                    if(content.match(/\#/)) {
+                        $(obj).removeClass('com').addClass('pln');
+                    }
+                });
+            }
+        }
+        $(document).ready(function() {
+            $('pre').addClass('prettyprint');
+            $('table').addClass('table table-striped table-bordered');
+        });
+    </script>
+
+    <!-- Twitter -->
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+    <!-- Analytics -->
+    <script type="text/javascript">
+                var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+                document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+                </script>
+                <script type="text/javascript">
+                var pageTracker = _gat._getTracker("UA-775649-7");
+                pageTracker._initData();
+                pageTracker._trackPageview();
+    </script>
+
+</body>
+</html>
