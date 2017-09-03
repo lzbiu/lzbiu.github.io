@@ -2,6 +2,12 @@
 
 问题的问题是： 如何更轻易的发布新blog？？？
 
+准备用dreamweaver cc 2017 + Git 接管本静态网站的开发和维护。
+
+主要是熟悉版本控制的基本操作。
+
+后期，用windows下的 MarkdownPad 组织文章发布。。。。
+
 You can use the [editor on GitHub](https://github.com/lzbiu/lzbiu.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
