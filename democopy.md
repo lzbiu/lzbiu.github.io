@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+## NAV2
 
 问题的问题是： 如何更轻易的发布新blog？？？
 
